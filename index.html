@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+    <style>
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0;}
+      #map{ height: 100% }
+    </style>
+    <link rel="stylesheet" href="leaflet/leaflet.css" />
+<!--[if lte IE 8]>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.ie.css" />
+<![endif]-->
+
+<script src="leaflet/leaflet-src.js"></script>
+<script type="text/javascript" src="leaflet/leaflet.ajax.js"></script>
+<script src="leaflet/spin.js"></script>
+<script src="leaflet/leaflet.spin.js"></script>
+
+
+
+
+    <title>Tugas Batas Desa</title>
+    </head>
+    <body>
+    <div id="map"></div>
+      <script type="text/javascript">
+
+    var m = L.map('map').setView([-8.7063873,116.3393212], 14);
+    var mopt = {
+        url:  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+        options: { attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>' }
+    };
+    var mq = L.tileLayer(mopt.url, mopt.options);
+    mq.addTo(m);
+
+function popUp(f,l){
+    var out = [];
+    if (f.properties){
+        for(key in f.properties){
+            out.push(key+": "+f.properties[key]);
+        }
+        l.bindPopup(out.join("<br />"));
+    }
+}
+var jsonTest = new L.GeoJSON.AJAX(["desa1_beraim.geojson"],{onEachFeature:popUp}).addTo(m);
+
+    var marker = L.marker([-8.7064227, 116.3373432]).addTo(m)
+        .bindPopup('<b>Kantor Desa Beraim.').openPopup();
+         var marker = L.marker([-8.7065074, 116.3398964]).addTo(m)
+                .bindPopup('<b>Polindes Desa Beraim.').openPopup();
+
+   
+</script>
+
+
+    </body>
+</html>
